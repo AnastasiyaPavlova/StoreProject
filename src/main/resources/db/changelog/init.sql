@@ -2,20 +2,16 @@ CREATE TABLE if not exists customer
 (
     customer_id bigserial PRIMARY KEY,
     name        varchar(20) NOT NULL,
-    surname     varchar(20) NOT NULL,
-    email       varchar(20) NOT NULL,
-    phone       varchar(20) NOT NULL,
-    address     varchar(50) NOT NULL,
-    login       varchar(20) NOT NULL,
-    password    varchar(20) NOT NULL
+    address     varchar(50) NOT NULL
 );
 
 CREATE TABLE if not exists category
 (
     category_id        bigserial PRIMARY KEY,
-    parent_category_id bigserial   NOT NULL references category,
+    parent_category_id bigserial,
     name               varchar(50) NOT NULL
 );
+
 CREATE TABLE if not exists product
 (
     product_id  bigserial PRIMARY KEY,

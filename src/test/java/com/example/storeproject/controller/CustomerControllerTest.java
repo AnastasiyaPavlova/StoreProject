@@ -8,7 +8,6 @@ import com.example.storeproject.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -41,8 +40,8 @@ public class CustomerControllerTest {
     @Test
     public void createPersonTest() throws Exception {
         // given
-        CustomerCreateRequestDto dtoRequest = new CustomerCreateRequestDto("name", "surname", "email", "phone", "address", "login", "password");
-        Customer expectedCustomer = new Customer("name", "surname", "email", "phone", "address", "login", "password");
+        CustomerCreateRequestDto dtoRequest = new CustomerCreateRequestDto("name", "address");
+        Customer expectedCustomer = new Customer("name","address");
         expectedCustomer.setId(1L);
 
        when(customerService.createCustomer(dtoRequest)).thenReturn(expectedCustomer);
@@ -66,7 +65,7 @@ public class CustomerControllerTest {
     public void editNameCustomerTest() throws Exception {
         // given
         CustomerEditNameRequestDto dtoRequest = new CustomerEditNameRequestDto (1L,"name");
-        Customer expectedCustomer = new Customer("name", "surname", "email", "phone", "address", "login", "password");
+        Customer expectedCustomer = new Customer("name","address");
         expectedCustomer.setId(1L);
 
         when(customerService.editNameCustomer(dtoRequest)).thenReturn(expectedCustomer);
@@ -89,7 +88,7 @@ public class CustomerControllerTest {
     public void deleteCustomerTest() throws Exception {
         // given
         CustomerDeleteRequestDto dtoRequest = new CustomerDeleteRequestDto(1L);
-        Customer expectedCustomer = new Customer("name", "surname", "email", "phone", "address", "login", "password");
+        Customer expectedCustomer = new Customer("name","address");
         expectedCustomer.setId(1L);
 
         when(customerService.deleteCustomer(dtoRequest)).thenReturn(expectedCustomer);

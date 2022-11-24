@@ -5,21 +5,22 @@ import com.example.storeproject.entity.Customer;
 
 import java.util.Objects;
 
-public class CustomerEditNameResponseDto {
-
+public class CustomerCreateResponseDto {
     private Long id;
     private String name;
+    private String address;
 
-    public CustomerEditNameResponseDto(Customer customer) {
+    public CustomerCreateResponseDto(Customer customer) {
         this.id = customer.getId();
         this.name = customer.getName();
+        this.address = customer.getAddress();
     }
 
     public Long getId() {
         return id;
     }
 
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,18 +32,26 @@ public class CustomerEditNameResponseDto {
         this.name = name;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CustomerCreateRequestDto)) return false;
-        CustomerCreateRequestDto that = (CustomerCreateRequestDto) o;
+        if (!(o instanceof CustomerCreateResponseDto)) return false;
+        CustomerCreateResponseDto that = (CustomerCreateResponseDto) o;
         return getId() == that.getId() &&
-                Objects.equals(getName(), that.getName());
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getAddress(), that.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName());
+        return Objects.hash(getId(), getName(), getAddress());
     }
 }
-

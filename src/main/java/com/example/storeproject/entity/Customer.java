@@ -10,27 +10,15 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Long id;
-
     private String name;
-    private String surname;
-    private String email;
-    private String phone;
     private String address;
-    private String login;
-    private String password;
 
-    public Customer(String name, String surname, String email, String phone, String address, String login, String password) {
+    public Customer(String name, String address) {
         this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.phone = phone;
         this.address = address;
-        this.login = login;
-        this.password = password;
     }
 
-   public Customer() {
-
+    public Customer() {
     }
 
     public void setId(Long id) {
@@ -49,52 +37,12 @@ public class Customer {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override
@@ -104,16 +52,11 @@ public class Customer {
         Customer that = (Customer) o;
         return id == that.id &&
                 name.equals(that.name) &&
-                surname.equals(that.surname) &&
-                email.equals(that.email) &&
-                phone.equals(that.phone) &&
-                address.equals(that.address) &&
-                login.equals(that.login) &&
-                password.equals(that.password);
+                address.equals(that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, email, phone, address, login, password);
+        return Objects.hash(id, name, address);
     }
 }

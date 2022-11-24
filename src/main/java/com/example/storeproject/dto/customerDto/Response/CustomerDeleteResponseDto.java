@@ -5,7 +5,9 @@ import com.example.storeproject.entity.Customer;
 public class CustomerDeleteResponseDto {
     private Long id;
 
-
+    public CustomerDeleteResponseDto(Customer customer) {
+        this.id = customer.getId();
+    }
 
     public Long getId() {
         return id;
@@ -14,8 +16,4 @@ public class CustomerDeleteResponseDto {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public CustomerDeleteResponseDto(Customer customer) {
-        this.id = customer.getId();
-            }
 }

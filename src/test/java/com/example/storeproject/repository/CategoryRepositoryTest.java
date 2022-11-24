@@ -1,6 +1,6 @@
 package com.example.storeproject.repository;
 
-import com.example.storeproject.entity.Customer;
+import com.example.storeproject.entity.Category;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +15,19 @@ import static org.junit.Assert.*;
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class CustomerRepositoryTest {
+
+public class CategoryRepositoryTest {
     @Autowired
-    private CustomerRepository customerRepository;
+    private CategoryRepository categoryRepository;
 
     @Test
-    public void testSavingRoundTrip(){
+    public void testSavingCategoryRoundTrip() {
         // given
-        Customer customer = new Customer("Имя1","Адрес1");
+
+        Category category = new Category("Игрушки", 1);
 
         // when
-        Customer result = customerRepository.save(customer);
+        Category result = categoryRepository.save(category);
 
         // then
         assertNotNull(result);

@@ -4,7 +4,7 @@ package com.example.storeproject.controller;
 import com.example.storeproject.dto.customerDto.Request.CustomerCreateRequestDto;
 import com.example.storeproject.dto.customerDto.Request.CustomerDeleteRequestDto;
 import com.example.storeproject.dto.customerDto.Request.CustomerEditNameRequestDto;
-import com.example.storeproject.dto.customerDto.Response.CustomerCreatResponseDto;
+import com.example.storeproject.dto.customerDto.Response.CustomerCreateResponseDto;
 import com.example.storeproject.dto.customerDto.Response.CustomerDeleteResponseDto;
 import com.example.storeproject.dto.customerDto.Response.CustomerEditNameResponseDto;
 import com.example.storeproject.service.CustomerService;
@@ -20,8 +20,8 @@ public class CustomerController {
 
 
     @PostMapping("createCustomer")
-    public CustomerCreatResponseDto createCustomer (@RequestBody CustomerCreateRequestDto dto) throws Exception{
-        return new CustomerCreatResponseDto(customerService.createCustomer(dto));
+    public CustomerCreateResponseDto createCustomer (@RequestBody CustomerCreateRequestDto dto) throws Exception{
+        return new CustomerCreateResponseDto(customerService.createCustomer(dto));
     }
 
     @PostMapping("editNameCustomer")

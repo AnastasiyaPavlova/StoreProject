@@ -20,8 +20,9 @@ public class CustomerService {
 
 
     public Customer createCustomer(CustomerCreateRequestDto dto) {
-        return customerRepository.save(new Customer(dto.getName(), dto.getSurname(),
-                dto.getEmail(), dto.getPhone(), dto.getAddress(), dto.getLogin(), dto.getPassword()));
+        Customer customer = new Customer(dto.getName(), dto.getAddress());
+        customerRepository.save(customer);
+        return customer;
     }
 
     public Customer editNameCustomer(CustomerEditNameRequestDto dto) {
@@ -31,12 +32,12 @@ public class CustomerService {
         customerRepository.save(customer);
         return customer;
     }
+
     public Customer deleteCustomer(CustomerDeleteRequestDto dto) {
         Optional<Customer> customerFromDB = customerRepository.findById(dto.getId());
         Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for delete with id " + dto.getId() + " not found"));
         customerRepository.delete(customer);
         return customer;
     }
-
 }
 
