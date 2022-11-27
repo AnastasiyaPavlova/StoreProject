@@ -1,10 +1,10 @@
 package com.example.storeproject.service;
 
 
+import com.example.storeproject.dto.customerDto.request.CustomerUpdateAddressRequestDto;
+import com.example.storeproject.dto.customerDto.request.CustomerUpdateNameRequestDto;
 import com.example.storeproject.exeption.CustomerNotFoundException;
-import com.example.storeproject.dto.customerDto.Request.CustomerCreateRequestDto;
-import com.example.storeproject.dto.customerDto.Request.CustomerDeleteRequestDto;
-import com.example.storeproject.dto.customerDto.Request.CustomerEditNameRequestDto;
+import com.example.storeproject.dto.customerDto.request.CustomerCreateRequestDto;
 import com.example.storeproject.entity.Customer;
 import com.example.storeproject.repository.CustomerRepository;
 
@@ -25,19 +25,26 @@ public class CustomerService {
         return customer;
     }
 
-    public Customer editNameCustomer(CustomerEditNameRequestDto dto) {
+    public String updateNameCustomer(CustomerUpdateNameRequestDto dto) {
         Optional<Customer> customerFromDB = customerRepository.findById(dto.getId());
         Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for edit with id " + dto.getId() + " not found"));
         customer.setName(dto.getName());
         customerRepository.save(customer);
-        return customer;
+        return customer.getName();
+    }
+    public String updateAddressCustomer(CustomerUpdateAddressRequestDto dto) {
+        Optional<Customer> customerFromDB = customerRepository.findById(dto.getId());
+        Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for edit with id " + dto.getId() + " not found"));
+        customer.setAddress(dto.getAddress());
+        customerRepository.save(customer);
+        return customer.getAddress();
     }
 
-    public Customer deleteCustomer(CustomerDeleteRequestDto dto) {
-        Optional<Customer> customerFromDB = customerRepository.findById(dto.getId());
-        Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for delete with id " + dto.getId() + " not found"));
+    public Long deleteCustomer(Long id) {
+        Optional<Customer> customerFromDB = customerRepository.findById(id);
+        Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for delete with id " + id + " not found"));
         customerRepository.delete(customer);
-        return customer;
-    }
+        return customer.getId();
+           }
 }
 

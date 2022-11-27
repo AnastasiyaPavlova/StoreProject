@@ -1,8 +1,8 @@
-package com.example.storeproject.dto.customerDto.Request;
+package com.example.storeproject.dto.customerDto.request;
 
+import java.util.Objects;
 
 public class CustomerCreateRequestDto {
-    private Long id;
     private String name;
     private String address;
 
@@ -10,14 +10,7 @@ public class CustomerCreateRequestDto {
         this.name = name;
         this.address = address;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
+    public CustomerCreateRequestDto(){}
 
     public String getName() {
         return name;
@@ -33,5 +26,15 @@ public class CustomerCreateRequestDto {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CustomerCreateRequestDto that)) return false;
+        return Objects.equals(getName(), that.getName()) && Objects.equals(getAddress(), that.getAddress());
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getAddress());
     }
 }

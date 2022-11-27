@@ -4,20 +4,18 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "category")
-public class Category {
+@Table(name = "delivery")
+public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+    @Column(name = "delivery_id")
     private Long id;
-    private Long parentCategoryId;
     private String name;
 
-    public Category(String name, long parentCategoryId) {
+    public Delivery(String name) {
         this.name = name;
-        this.parentCategoryId = parentCategoryId;
     }
-    public Category() {}
+    public Delivery() {}
 
     public Long getId() {
         return id;
@@ -27,15 +25,7 @@ public class Category {
         this.id = id;
     }
 
-    public Long getParentCategoryId() {
-        return parentCategoryId;
-    }
-
-    public void setParentCategoryId(Long parentCategoryId) {
-        this.parentCategoryId = parentCategoryId;
-    }
-
-    public String getName() {
+       public String getName() {
         return name;
     }
 
@@ -47,15 +37,14 @@ public class Category {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Category that = (Category) o;
+        Delivery that = (Delivery) o;
         return id == that.getId() &&
-                name.equals(that.getName()) &&
-                parentCategoryId == that.getParentCategoryId();
+                name.equals(that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, parentCategoryId);
+        return Objects.hash(id, name);
     }
 }
 

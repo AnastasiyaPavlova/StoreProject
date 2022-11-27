@@ -1,10 +1,9 @@
 package com.example.storeproject.service;
 
 
-import com.example.storeproject.dto.customerDto.Request.CustomerCreateRequestDto;
-import com.example.storeproject.dto.customerDto.Request.CustomerDeleteRequestDto;
-import com.example.storeproject.dto.customerDto.Request.CustomerEditNameRequestDto;
-
+import com.example.storeproject.dto.customerDto.request.CustomerCreateRequestDto;
+import com.example.storeproject.dto.customerDto.request.CustomerUpdateAddressRequestDto;
+import com.example.storeproject.dto.customerDto.request.CustomerUpdateNameRequestDto;
 import com.example.storeproject.entity.Customer;
 import com.example.storeproject.exeption.CustomerNotFoundException;
 import com.example.storeproject.repository.CustomerRepository;
@@ -17,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.Optional;
-
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
@@ -28,13 +24,13 @@ import static org.mockito.Mockito.*;
 public class CustomerServiceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    @MockBean
+@MockBean
     CustomerRepository customerRepository;
-    @Autowired
-    private CustomerService customerService;
+@Autowired
+   CustomerService customerService;
 
     @Test
-    public void createCustomer() {
+    public void testCreateCustomer() {
         // given
         CustomerCreateRequestDto dto = new CustomerCreateRequestDto("Имя", "Адрес");
         Customer expectedCustomer = new Customer("Имя", "Адрес");
@@ -46,75 +42,106 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void EditNameCustomerFromDBWhenCustomerFindById() {
+    public void testUpdateNameCustomerFromDBWhenCustomerFindById() {
         // given
         Customer customer = new Customer("Имя1", "адрес1");
         customer.setId(1L);
         Optional<Customer> customerFromDB = Optional.of(customer);
-        CustomerEditNameRequestDto dto = new CustomerEditNameRequestDto(1L, "Маша");
-        Customer expectedCustomer = new Customer("Маша", "адрес1");
-        expectedCustomer.setId(1L);
+        CustomerUpdateNameRequestDto dto = new CustomerUpdateNameRequestDto(1L, "Маша");
+        String expectedName = "Маша";
+
         when(customerRepository.findById(dto.getId())).thenReturn(customerFromDB);
 
         //when
-        Customer actualCustomer = customerService.editNameCustomer(dto);
+       String actualName = customerService.updateNameCustomer(dto);
 
         // then
-        Assert.assertEquals(expectedCustomer, actualCustomer);
+        Assert.assertEquals(expectedName, actualName);
     }
 
     @Test
-    public void editNameCustomerThrowCustomerNotFoundExceptionIfCustomerIsNotExistInDB() {
+    public void testUpdateNameCustomerThrowCustomerNotFoundExceptionIfCustomerIsNotExistInDB() {
         // given
         Optional<Customer> customerFromDB = Optional.ofNullable(null);
-        CustomerEditNameRequestDto dto = new CustomerEditNameRequestDto(1L, "Маша");
-        Customer expectedCustomer = new Customer("Маша", "адрес1");
-        expectedCustomer.setId(1L);
+        CustomerUpdateNameRequestDto dto = new CustomerUpdateNameRequestDto(1L, "Маша");
+        String expectedName = "Маша";
 
         when(customerRepository.findById(dto.getId())).thenReturn(customerFromDB);
 
         //when
         thrown.expect(CustomerNotFoundException.class);
-        Customer actualCustomer = customerService.editNameCustomer(dto);
+        String actualName = customerService.updateNameCustomer(dto);
 
         // then
-        Assert.assertEquals(expectedCustomer, actualCustomer);
+        Assert.assertEquals(expectedName, actualName);
     }
-
     @Test
-    public void deleteCustomerById() {
+    public void testUpdateAddressCustomerFromDBWhenCustomerFindById() {
         // given
         Customer customer = new Customer("Имя1", "адрес1");
         customer.setId(1L);
         Optional<Customer> customerFromDB = Optional.of(customer);
-
-        CustomerDeleteRequestDto dto = new CustomerDeleteRequestDto(1L);
-
+        CustomerUpdateAddressRequestDto dto = new CustomerUpdateAddressRequestDto(1L, "Санкт-Петербург");
+        String expectedAddress = "Санкт-Петербург";
 
         when(customerRepository.findById(dto.getId())).thenReturn(customerFromDB);
 
         //when
-        Customer actualCustomer = customerService.deleteCustomer(dto);
+        String actualAddress = customerService.updateAddressCustomer(dto);
 
         // then
-        assertNotNull(actualCustomer);
-
+        Assert.assertEquals(expectedAddress, actualAddress);
     }
 
     @Test
-    public void deleteCustomerByIdThrowCustomerNotFoundExceptionIfCustomerIsNotExistInDB() {
+    public void testUpdateAddressCustomerThrowCustomerNotFoundExceptionIfCustomerIsNotExistInDB() {
         // given
-        Optional<Customer> customerFromDB = Optional.ofNullable(null);
-
-        CustomerDeleteRequestDto dto = new CustomerDeleteRequestDto(1L);
+       Optional<Customer> customerFromDB = Optional.ofNullable(null);
+        CustomerUpdateAddressRequestDto dto = new CustomerUpdateAddressRequestDto(1L, "Санкт-Петербург");
+        String expectedAddress = "Санкт-Петербург";
 
         when(customerRepository.findById(dto.getId())).thenReturn(customerFromDB);
 
         //when
         thrown.expect(CustomerNotFoundException.class);
-        Customer actualCustomer = customerService.deleteCustomer(dto);
+        String actualAddress = customerService.updateAddressCustomer(dto);
 
         // then
-        assertNotNull(actualCustomer);
+        Assert.assertEquals(expectedAddress, actualAddress);
+    }
+
+    @Test
+    public void testDeleteCustomerById() {
+        // given
+        Long id=1L;
+        Customer customer = new Customer("Имя1", "адрес1");
+        customer.setId(1L);
+        Optional<Customer> customerFromDB = Optional.of(customer);
+        Long expectedId=1L;
+
+        when(customerRepository.findById(id)).thenReturn(customerFromDB);
+
+        //when
+        Long actualId = customerService.deleteCustomer(id);
+
+        // then
+        Assert.assertEquals(expectedId, actualId);
+    }
+
+    @Test
+    public void testDeleteCustomerByIdThrowCustomerNotFoundExceptionIfCustomerIsNotExistInDB() {
+        // given
+        Long id=1L;
+        Optional<Customer> customerFromDB = Optional.ofNullable(null);
+        Long expectedId=1L;
+
+        when(customerRepository.findById(id)).thenReturn(customerFromDB);
+
+        //when
+        thrown.expect(CustomerNotFoundException.class);
+        Long actualId = customerService.deleteCustomer(id);
+
+        // then
+        Assert.assertEquals(expectedId, actualId);
     }
 }

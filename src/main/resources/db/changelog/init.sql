@@ -1,54 +1,132 @@
-CREATE TABLE if not exists customer
+CREATE TABLE customer
 (
-    customer_id bigserial PRIMARY KEY,
-    name        varchar(20) NOT NULL,
-    address     varchar(50) NOT NULL
+    customer_id bigint PRIMARY KEY,
+    name        character varying(50) NOT NULL,
+    address     character varying(50)
+);
+CREATE SEQUENCE customer_id_seq
+    START WITH 7
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE customer_id_seq OWNED BY customer.customer_id;
+
+ALTER TABLE ONLY customer ALTER COLUMN customer_id SET DEFAULT nextval('customer_id_seq'::regclass);
+
+CREATE TABLE category
+(
+    category_id        bigint PRIMARY KEY,
+    parent_category_id bigint,
+    name               character varying(50) NOT NULL
 );
 
-CREATE TABLE if not exists category
-(
-    category_id        bigserial PRIMARY KEY,
-    parent_category_id bigserial,
-    name               varchar(50) NOT NULL
-);
+CREATE SEQUENCE category_id_seq
+    START WITH 7
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
-CREATE TABLE if not exists product
+ALTER SEQUENCE category_id_seq OWNED BY category.category_id;
+
+ALTER TABLE ONLY category ALTER COLUMN category_id SET DEFAULT nextval('category_id_seq'::regclass);
+
+
+
+CREATE TABLE product
 (
-    product_id  bigserial PRIMARY KEY,
-    category_id bigserial   NOT NULL references category,
-    name        varchar(50) NOT NULL,
-    visibly     boolean default true,
-    price       money       not null,
+    product_id  bigint PRIMARY KEY,
+    category_id bigint   NOT NULL,
+    name        character varying(50) NOT NULL,
+    visible     boolean default true,
+    price       numeric       not null,
     count       int         not null
 );
 
-CREATE TABLE if not exists delivery
+CREATE SEQUENCE product_id_seq
+    START WITH 7
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE product_id_seq OWNED BY product.product_id;
+
+ALTER TABLE ONLY product ALTER COLUMN product_id SET DEFAULT nextval('product_id_seq'::regclass);
+
+CREATE TABLE delivery
 (
-    delivery_id bigserial PRIMARY KEY,
-    name        varchar(50) NOT NULL
+    delivery_id bigint PRIMARY KEY,
+    name       character varying(50) NOT NULL
 );
-CREATE TABLE if not exists order_status
+CREATE SEQUENCE delivery_id_seq
+    START WITH 3
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE delivery_id_seq OWNED BY delivery.delivery_id;
+
+ALTER TABLE ONLY delivery ALTER COLUMN delivery_id SET DEFAULT nextval('delivery_id_seq'::regclass);
+
+CREATE TABLE order_status
 (
-    order_status_id bigserial PRIMARY KEY,
-    delivery_id     bigserial references delivery,
-    name            varchar(50) NOT NULL
+    order_status_id bigint PRIMARY KEY,
+    delivery_id     bigint,
+    name            character varying(50) NOT NULL
 );
-CREATE TABLE if not exists order_product
+
+CREATE SEQUENCE order_status_id_seq
+    START WITH 7
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE order_status_id_seq OWNED BY order_status.order_status_id;
+
+ALTER TABLE ONLY order_status ALTER COLUMN order_status_id SET DEFAULT nextval('order_status_id_seq'::regclass);
+
+CREATE TABLE order_product
 (
-    order_product_id bigserial PRIMARY KEY,
-    order_id         bigserial,
-    product_id       bigserial references product,
+    order_product_id bigint PRIMARY KEY,
+    order_id         bigint,
+    product_id       bigint,
     count            int,
-    price            money,
-    cost             money
+    price            numeric,
+    cost           numeric
 );
-CREATE TABLE if not exists "order"
+CREATE SEQUENCE order_product_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE order_product_id_seq OWNED BY order_product.order_product_id;
+
+ALTER TABLE ONLY order_product ALTER COLUMN order_product_id SET DEFAULT nextval('order_product_id_seq'::regclass);
+
+CREATE TABLE gen_order
 (
-    order_id        bigserial PRIMARY KEY,
-    customer_id     bigserial,
-    delivery_id     bigserial,
-    order_status_id bigserial,
-    date            date,
-    cost            money,
-    address         varchar(50)
-)
+    order_id        bigint PRIMARY KEY,
+    customer_id     bigint,
+    delivery_id     bigint,
+    order_status_id bigint,
+   date            date,
+    cost            numeric,
+    address         character varying(50)
+);
+CREATE SEQUENCE gen_order_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE gen_order_id_seq OWNED BY gen_order.order_id;
+
+ALTER TABLE ONLY gen_order ALTER COLUMN order_id SET DEFAULT nextval('gen_order_id_seq'::regclass);

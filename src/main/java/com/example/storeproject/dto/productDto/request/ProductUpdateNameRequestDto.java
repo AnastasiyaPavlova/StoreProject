@@ -1,12 +1,11 @@
-package com.example.storeproject.dto.customerDto.Request;
+package com.example.storeproject.dto.productDto.request;
 
 
-public class CustomerEditNameRequestDto {
-
+public class ProductUpdateNameRequestDto {
     private Long id;
     private String name;
 
-    public CustomerEditNameRequestDto(Long id, String name) {
+    public ProductUpdateNameRequestDto(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -15,7 +14,7 @@ public class CustomerEditNameRequestDto {
         return id;
     }
 
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -27,3 +26,16 @@ public class CustomerEditNameRequestDto {
         this.name = name;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

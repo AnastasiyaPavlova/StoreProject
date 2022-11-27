@@ -1,12 +1,10 @@
 package com.example.storeproject.controller;
 
 
-import com.example.storeproject.dto.customerDto.Request.CustomerCreateRequestDto;
-import com.example.storeproject.dto.customerDto.Request.CustomerDeleteRequestDto;
-import com.example.storeproject.dto.customerDto.Request.CustomerEditNameRequestDto;
-import com.example.storeproject.dto.customerDto.Response.CustomerCreateResponseDto;
-import com.example.storeproject.dto.customerDto.Response.CustomerDeleteResponseDto;
-import com.example.storeproject.dto.customerDto.Response.CustomerEditNameResponseDto;
+import com.example.storeproject.dto.customerDto.request.CustomerCreateRequestDto;
+import com.example.storeproject.dto.customerDto.request.CustomerUpdateAddressRequestDto;
+import com.example.storeproject.dto.customerDto.request.CustomerUpdateNameRequestDto;
+import com.example.storeproject.dto.customerDto.response.CustomerCreateResponseDto;
 import com.example.storeproject.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +17,21 @@ public class CustomerController {
     private CustomerService customerService;
 
 
-    @PostMapping("createCustomer")
-    public CustomerCreateResponseDto createCustomer (@RequestBody CustomerCreateRequestDto dto) throws Exception{
+    @PostMapping("/createCustomer")
+    public CustomerCreateResponseDto createCustomer (@RequestBody CustomerCreateRequestDto dto){
         return new CustomerCreateResponseDto(customerService.createCustomer(dto));
     }
-
-    @PostMapping("editNameCustomer")
-    public CustomerEditNameResponseDto editNameCustomer(@RequestBody CustomerEditNameRequestDto dto) {
-            return new CustomerEditNameResponseDto(customerService.editNameCustomer(dto));
+    @PostMapping(value = "updateName")
+    public String updateNameCustomer(@RequestBody CustomerUpdateNameRequestDto dto) {
+            return customerService.updateNameCustomer(dto);
     }
-
-    @PostMapping("deleteCustomer")
-    public CustomerDeleteResponseDto deleteCustomer(@RequestBody CustomerDeleteRequestDto dto) {
-        return new CustomerDeleteResponseDto(customerService.deleteCustomer(dto));
+    @PostMapping(value = "updateAddress")
+    public String updateAddressCustomer(@RequestBody CustomerUpdateAddressRequestDto dto) {
+        return customerService.updateAddressCustomer(dto);
+    }
+    @DeleteMapping(value ="{id}" )
+    public Long deleteProduct(@PathVariable Long id) {
+        return customerService.deleteCustomer(id);
     }
 }
 
