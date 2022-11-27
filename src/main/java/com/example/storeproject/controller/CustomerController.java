@@ -21,9 +21,10 @@ public class CustomerController {
     public CustomerCreateResponseDto createCustomer (@RequestBody CustomerCreateRequestDto dto){
         return new CustomerCreateResponseDto(customerService.createCustomer(dto));
     }
-    @PostMapping(value = "updateName")
+    @PostMapping(value = "/updateName")
     public String updateNameCustomer(@RequestBody CustomerUpdateNameRequestDto dto) {
-            return customerService.updateNameCustomer(dto);
+        String s = customerService.updateNameCustomer(dto);
+            return s;
     }
     @PostMapping(value = "updateAddress")
     public String updateAddressCustomer(@RequestBody CustomerUpdateAddressRequestDto dto) {

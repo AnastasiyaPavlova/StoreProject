@@ -1,7 +1,6 @@
 package com.example.storeproject.controller;
 
 import com.example.storeproject.dto.customerDto.request.CustomerCreateRequestDto;
-import com.example.storeproject.dto.customerDto.request.CustomerUpdateNameRequestDto;
 import com.example.storeproject.entity.Customer;
 import com.example.storeproject.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,9 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.mockito.Mockito.when;
@@ -54,19 +51,18 @@ public class CustomerControllerTest {
 
         // then
         result
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
                 .andExpect(jsonPath("$.name").value("name"))
                 .andExpect(jsonPath("$.address").value("address"))
                 .andExpect(status().isOk());
     }
-
+/*
   @Test
     public void testUpdateNameCustomer() throws Exception {
         // given
         CustomerUpdateNameRequestDto dtoRequest = new CustomerUpdateNameRequestDto (1L,"name");
-        String expectedName = "name";
+        String expectedName = "neme";
 
-        when(customerService.updateNameCustomer(any())).thenReturn(expectedName);
+        when(customerService.updateNameCustomer(dtoRequest)).thenReturn(expectedName);
 
       //when
         ResultActions result = mockMvc.perform(post("/api/customer/updateName")
@@ -77,23 +73,20 @@ public class CustomerControllerTest {
         // then
         result
 
-               .andExpect(jsonPath("$.name").value("name"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 
-   /* @Test
+
+   @Test
     public void testDeleteCustomer() throws Exception {
         // given
-        CustomerDeleteRequestDto dtoRequest = new CustomerDeleteRequestDto(1L);
-        Customer expectedCustomer = new Customer("name","address");
-        expectedCustomer.setId(1L);
+        Long id = 1L;
 
-        when(customerService.deleteCustomer(dtoRequest)).thenReturn(expectedCustomer);
+        when(customerService.deleteCustomer(id)).thenReturn(id);
 
-        ResultActions result = mockMvc.perform(post("/api/customer/deleteCustomer")
+        ResultActions result = mockMvc.perform(delete("/api/customer/1")
                 .contentType(APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(dtoRequest))
+                .content(objectMapper.writeValueAsString(id))
                 .accept(APPLICATION_JSON));
 
         // then
@@ -101,4 +94,5 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }*/
+
 }

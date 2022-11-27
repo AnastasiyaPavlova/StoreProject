@@ -21,8 +21,8 @@ public class ProductService {
 
     public Product createProduct(ProductCreateRequestDto dto) {
         Product product = new Product(dto.getCategoryId(), dto.getName(), dto.isVisible(), dto.getPrice(), dto.getCount());
-        productRepository.save(product);
-        return product;
+        return productRepository.save(product);
+
     }
 
     public Long updateCategoryIdProduct(ProductUpdateCategoryIdRequestDto dto) {
@@ -61,7 +61,7 @@ public class ProductService {
 
     public int updateCountProduct(ProductUpdateCountRequestDto dto) {
         Optional<Product> productFromDB = productRepository.findById(dto.getId());
-        Product product = productFromDB.orElseThrow(() -> new CustomerNotFoundException("Product for update with id " + dto.getId() + " not found"));
+        Product product = productFromDB.orElseThrow(() -> new ProductNotFoundException("Product for update with id " + dto.getId() + " not found"));
         product.setCount(dto.getCount());
         productRepository.save(product);
         return product.getCount();

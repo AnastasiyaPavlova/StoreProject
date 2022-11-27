@@ -34,6 +34,9 @@ public class CustomerServiceTest {
         // given
         CustomerCreateRequestDto dto = new CustomerCreateRequestDto("Имя", "Адрес");
         Customer expectedCustomer = new Customer("Имя", "Адрес");
+        expectedCustomer.setId(1L);
+
+        when(customerRepository.save(any())).thenReturn(expectedCustomer);
 
         //when
         Customer actualCustomer = customerService.createCustomer(dto);

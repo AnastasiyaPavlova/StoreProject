@@ -21,8 +21,7 @@ public class CustomerService {
 
     public Customer createCustomer(CustomerCreateRequestDto dto) {
         Customer customer = new Customer(dto.getName(), dto.getAddress());
-        customerRepository.save(customer);
-        return customer;
+        return customerRepository.save(customer);
     }
 
     public String updateNameCustomer(CustomerUpdateNameRequestDto dto) {
@@ -32,6 +31,7 @@ public class CustomerService {
         customerRepository.save(customer);
         return customer.getName();
     }
+
     public String updateAddressCustomer(CustomerUpdateAddressRequestDto dto) {
         Optional<Customer> customerFromDB = customerRepository.findById(dto.getId());
         Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for edit with id " + dto.getId() + " not found"));
@@ -45,6 +45,6 @@ public class CustomerService {
         Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for delete with id " + id + " not found"));
         customerRepository.delete(customer);
         return customer.getId();
-           }
+    }
 }
 
