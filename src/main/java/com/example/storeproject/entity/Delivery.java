@@ -36,15 +36,13 @@ public class Delivery {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Delivery that = (Delivery) o;
-        return id == that.getId() &&
-                name.equals(that.getName());
+        if (!(o instanceof Delivery delivery)) return false;
+        return Objects.equals(getId(), delivery.getId()) && Objects.equals(getName(), delivery.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(getId(), getName());
     }
 }
 

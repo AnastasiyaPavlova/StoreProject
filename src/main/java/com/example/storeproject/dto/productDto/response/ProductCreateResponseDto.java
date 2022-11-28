@@ -2,8 +2,6 @@ package com.example.storeproject.dto.productDto.response;
 
 import com.example.storeproject.entity.Product;
 
-import java.util.Objects;
-
 public class ProductCreateResponseDto {
     private Long categoryId;
     private String name;
@@ -18,7 +16,7 @@ public class ProductCreateResponseDto {
         this.price = product.getPrice();
         this.count = product.getCount();
     }
-
+    public ProductCreateResponseDto(){}
     public Long getCategoryId() {
         return categoryId;
     }
@@ -58,21 +56,5 @@ public class ProductCreateResponseDto {
     public void setCount(int count) {
         this.count = count;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProductCreateResponseDto)) return false;
-        ProductCreateResponseDto that = (ProductCreateResponseDto) o;
-        return getCategoryId() == that.getCategoryId() &&
-                Objects.equals(getName(), that.getName()) &&
-                isVisible() == that.isVisible() &&
-                getPrice() == that.getPrice() &&
-                getCount() == that.getCount();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCategoryId(), getName(), isVisible(), getPrice(), getCount());
-    }
 }
+

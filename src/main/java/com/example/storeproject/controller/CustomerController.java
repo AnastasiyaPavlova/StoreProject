@@ -18,19 +18,21 @@ public class CustomerController {
 
 
     @PostMapping("/createCustomer")
-    public CustomerCreateResponseDto createCustomer (@RequestBody CustomerCreateRequestDto dto){
+    public CustomerCreateResponseDto createCustomer(@RequestBody CustomerCreateRequestDto dto) {
         return new CustomerCreateResponseDto(customerService.createCustomer(dto));
     }
+
     @PostMapping(value = "/updateName")
     public String updateNameCustomer(@RequestBody CustomerUpdateNameRequestDto dto) {
-        String s = customerService.updateNameCustomer(dto);
-            return s;
+        return customerService.updateNameCustomer(dto);
     }
-    @PostMapping(value = "updateAddress")
+
+    @PostMapping(value = "/updateAddress")
     public String updateAddressCustomer(@RequestBody CustomerUpdateAddressRequestDto dto) {
         return customerService.updateAddressCustomer(dto);
     }
-    @DeleteMapping(value ="{id}" )
+
+    @DeleteMapping(value = "{id}")
     public Long deleteProduct(@PathVariable Long id) {
         return customerService.deleteCustomer(id);
     }

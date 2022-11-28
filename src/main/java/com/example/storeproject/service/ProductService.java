@@ -3,7 +3,6 @@ package com.example.storeproject.service;
 import com.example.storeproject.dto.productDto.request.*;
 import com.example.storeproject.entity.Product;
 import com.example.storeproject.exeption.CategoryNotFoundException;
-import com.example.storeproject.exeption.CustomerNotFoundException;
 import com.example.storeproject.exeption.ProductNotFoundException;
 import com.example.storeproject.repository.CategoryRepository;
 import com.example.storeproject.repository.ProductRepository;
@@ -31,16 +30,15 @@ public class ProductService {
         if (categoryRepository.findById(dto.getCategoryId()).isEmpty()){
             throw new CategoryNotFoundException("Category with id " + dto.getCategoryId() + " not found");}
         product.setCategoryId(dto.getCategoryId());
-        productRepository.save(product);
-        return product.getCategoryId();
-    }
+        return (productRepository.save(product)).getCategoryId();
+           }
 
     public String updateNameProduct(ProductUpdateNameRequestDto dto) {
         Optional<Product> productFromDB = productRepository.findById(dto.getId());
         Product product = productFromDB.orElseThrow(() -> new ProductNotFoundException("Product for update with id " + dto.getId() + " not found"));
         product.setName(dto.getName());
         productRepository.save(product);
-        return product.getName();
+        return (productRepository.save(product)).getName();
     }
 
     public boolean updateVisibleProduct(ProductUpdateVisibleRequestDto dto) {
@@ -48,7 +46,7 @@ public class ProductService {
         Product product = productFromDB.orElseThrow(() -> new ProductNotFoundException("Product for update with id " + dto.getId() + " not found"));
         product.setVisible(dto.isVisible());
         productRepository.save(product);
-        return product.getVisible();
+        return (productRepository.save(product)).getVisible();
     }
 
     public double updatePriceProduct(ProductUpdatePriceRequestDto dto) {
@@ -56,7 +54,7 @@ public class ProductService {
         Product product = productFromDB.orElseThrow(() -> new ProductNotFoundException("Product for update with id " + dto.getId() + " not found"));
         product.setPrice(dto.getPrice());
         productRepository.save(product);
-        return product.getPrice();
+        return (productRepository.save(product)).getPrice();
     }
 
     public int updateCountProduct(ProductUpdateCountRequestDto dto) {
@@ -64,7 +62,7 @@ public class ProductService {
         Product product = productFromDB.orElseThrow(() -> new ProductNotFoundException("Product for update with id " + dto.getId() + " not found"));
         product.setCount(dto.getCount());
         productRepository.save(product);
-        return product.getCount();
+        return (productRepository.save(product)).getCount();
     }
 
     public Long deleteProduct(Long id) {
@@ -73,7 +71,6 @@ public class ProductService {
         productRepository.deleteById(id);
         return product.getId();
     }
-
 
 }
 

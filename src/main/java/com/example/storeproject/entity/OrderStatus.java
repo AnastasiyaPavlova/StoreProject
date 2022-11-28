@@ -13,6 +13,18 @@ public class OrderStatus {
     private Long deliveryId;
     private String name;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderStatus that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getDeliveryId(), that.getDeliveryId()) && Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getDeliveryId(), getName());
+    }
+
     public OrderStatus(String name, Long deliveryId) {
 
         this.name = name;
@@ -45,17 +57,6 @@ public class OrderStatus {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OrderStatus that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getDeliveryId(), that.getDeliveryId()) && Objects.equals(getName(), that.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getDeliveryId(), getName());
-    }
 }
 
 

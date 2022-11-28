@@ -51,6 +51,18 @@ public class OrderCreatRequestDto {
     public void setOrderProductArray(List<OrderProductCreatRequestDto> orderProductRequestArray) {
         this.orderProductRequestArray = orderProductRequestArray;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderCreatRequestDto that)) return false;
+        return Objects.equals(getCustomerId(), that.getCustomerId()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getDeliveryId(), that.getDeliveryId()) && Objects.equals(orderProductRequestArray, that.orderProductRequestArray);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCustomerId(), getAddress(), getDeliveryId(), orderProductRequestArray);
+    }
 }
 
 

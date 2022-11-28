@@ -7,7 +7,7 @@ import com.example.storeproject.entity.Order;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 public class OrderGetByOrderIdResponseDto {
     private Long customerId;
@@ -87,27 +87,4 @@ public class OrderGetByOrderIdResponseDto {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OrderGetByOrderIdResponseDto)) return false;
-        OrderGetByOrderIdResponseDto that = (OrderGetByOrderIdResponseDto) o;
-        return
-                Objects.equals(getCustomerId(), that.getCustomerId()) &&
-                        Objects.equals(getAddress(), that.getAddress()) &&
-                        Objects.equals(getDeliveryId(), that.getDeliveryId()) &&
-                        Objects.equals(getOrderStatusId(), that.getOrderStatusId()) &&
-                        Objects.equals(getCost(), that.getCost()) &&
-                        Objects.equals(getDate(), that.getDate()) &&
-                        Objects.equals(getOrderProductResponse(), that.getOrderProductResponse());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCustomerId(), getAddress(), getDeliveryId(), getOrderStatusId(), getCost(), getDate(), getOrderProductResponse());
-    }
-
-
-}
+  }

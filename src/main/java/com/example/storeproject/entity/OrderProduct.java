@@ -81,18 +81,12 @@ public class OrderProduct {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OrderProduct that = (OrderProduct) o;
-        return id == that.id &&
-                orderId==that.orderId &&
-                productId == that.productId &&
-                cost ==that.count &&
-                price==that.price &&
-                cost==that.cost;
+        if (!(o instanceof OrderProduct that)) return false;
+        return getCount() == that.getCount() && Double.compare(that.getPrice(), getPrice()) == 0 && Double.compare(that.getCost(), getCost()) == 0 && Objects.equals(getId(), that.getId()) && Objects.equals(getOrderId(), that.getOrderId()) && Objects.equals(getProductId(), that.getProductId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orderId,productId,cost,price,cost);
+        return Objects.hash(getId(), getOrderId(), getProductId(), getCount(), getPrice(), getCost());
     }
 }

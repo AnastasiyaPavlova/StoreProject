@@ -1,6 +1,8 @@
 package com.example.storeproject.controller;
 
 import com.example.storeproject.dto.customerDto.request.CustomerCreateRequestDto;
+import com.example.storeproject.dto.customerDto.request.CustomerUpdateAddressRequestDto;
+import com.example.storeproject.dto.customerDto.request.CustomerUpdateNameRequestDto;
 import com.example.storeproject.entity.Customer;
 import com.example.storeproject.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +15,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -55,16 +59,17 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.address").value("address"))
                 .andExpect(status().isOk());
     }
-/*
-  @Test
+
+
+    @Test
     public void testUpdateNameCustomer() throws Exception {
         // given
-        CustomerUpdateNameRequestDto dtoRequest = new CustomerUpdateNameRequestDto (1L,"name");
-        String expectedName = "neme";
+        CustomerUpdateNameRequestDto dtoRequest = new CustomerUpdateNameRequestDto(1L, "name");
+        String expectedName = "name";
 
         when(customerService.updateNameCustomer(dtoRequest)).thenReturn(expectedName);
 
-      //when
+        //when
         ResultActions result = mockMvc.perform(post("/api/customer/updateName")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))
@@ -72,12 +77,32 @@ public class CustomerControllerTest {
 
         // then
         result
+                .andExpect(MockMvcResultMatchers.content().string("name"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpdateAddressCustomer() throws Exception {
+        // given
+        CustomerUpdateAddressRequestDto dtoRequest = new CustomerUpdateAddressRequestDto(1L, "Address1");
+        String expectedAddress = "Address1";
+
+        when(customerService.updateAddressCustomer(dtoRequest)).thenReturn(expectedAddress);
+
+        //when
+        ResultActions result = mockMvc.perform(post("/api/customer/updateAddress")
+                .contentType(APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dtoRequest))
+                .accept(APPLICATION_JSON));
+
+        // then
+        result
+                .andExpect(MockMvcResultMatchers.content().string("Address1"))
+                .andExpect(status().isOk());
 
     }
 
-
-
-   @Test
+    @Test
     public void testDeleteCustomer() throws Exception {
         // given
         Long id = 1L;
@@ -91,8 +116,9 @@ public class CustomerControllerTest {
 
         // then
         result
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
+                .andExpect(MockMvcResultMatchers.content().string("1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-    }*/
-
+    }
 }
+
+

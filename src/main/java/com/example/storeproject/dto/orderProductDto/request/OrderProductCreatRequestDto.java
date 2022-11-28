@@ -1,6 +1,8 @@
 package com.example.storeproject.dto.orderProductDto.request;
 
 
+import java.util.Objects;
+
 public class OrderProductCreatRequestDto {
 
     private Long productId;
@@ -27,6 +29,18 @@ public class OrderProductCreatRequestDto {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderProductCreatRequestDto that)) return false;
+        return getCount() == that.getCount() && Objects.equals(getProductId(), that.getProductId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProductId(), getCount());
     }
 }
 

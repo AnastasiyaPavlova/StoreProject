@@ -54,15 +54,12 @@ public class Customer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer that = (Customer) o;
-        return id == that.id &&
-                name.equals(that.name) &&
-                address.equals(that.address);
+        if (!(o instanceof Customer customer)) return false;
+        return Objects.equals(getId(), customer.getId()) && Objects.equals(getName(), customer.getName()) && Objects.equals(getAddress(), customer.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address);
+        return Objects.hash(getId(), getName(), getAddress());
     }
 }

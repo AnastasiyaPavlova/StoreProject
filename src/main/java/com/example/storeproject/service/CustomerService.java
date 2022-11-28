@@ -28,23 +28,20 @@ public class CustomerService {
         Optional<Customer> customerFromDB = customerRepository.findById(dto.getId());
         Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for edit with id " + dto.getId() + " not found"));
         customer.setName(dto.getName());
-        customerRepository.save(customer);
-        return customer.getName();
-    }
+        return (customerRepository.save(customer)).getName();
+            }
 
     public String updateAddressCustomer(CustomerUpdateAddressRequestDto dto) {
         Optional<Customer> customerFromDB = customerRepository.findById(dto.getId());
         Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for edit with id " + dto.getId() + " not found"));
         customer.setAddress(dto.getAddress());
-        customerRepository.save(customer);
-        return customer.getAddress();
+        return (customerRepository.save(customer)).getAddress();
     }
 
     public Long deleteCustomer(Long id) {
         Optional<Customer> customerFromDB = customerRepository.findById(id);
         Customer customer = customerFromDB.orElseThrow(() -> new CustomerNotFoundException("Customer for delete with id " + id + " not found"));
-        customerRepository.delete(customer);
-        return customer.getId();
+        return (customerRepository.save(customer)).getId();
     }
 }
 

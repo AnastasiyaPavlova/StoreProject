@@ -8,7 +8,6 @@ import com.example.storeproject.entity.Order;
 import com.example.storeproject.entity.OrderProduct;
 import com.example.storeproject.service.OrderProductService;
 import com.example.storeproject.service.OrderService;
-import liquibase.pro.packaged.G;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/order/")
+@RequestMapping("/api/order")
 public class OrderController {
 
   @Autowired
@@ -25,7 +24,7 @@ public class OrderController {
     private OrderProductService orderProductService;
 
 
-    @PostMapping("createOrder")
+    @PostMapping("/createOrder")
     public Long createOrder(@RequestBody OrderCreatRequestDto dto) {
        return orderService.createOrder(dto);
     }
@@ -39,9 +38,7 @@ public class OrderController {
             orderProductResponse.add(new OrderProductGetByOrderIdResponseDto(op));
         }
         Order order = orderService.getOrderByOrderId(orderId);
-
         OrderGetByOrderIdResponseDto ooo=new OrderGetByOrderIdResponseDto(order,orderProductResponse);
-
         return ooo;
     }
 }

@@ -95,20 +95,13 @@ public class Order {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order that = (Order) o;
-        return id == that.id &&
-                customerId == that.customerId &&
-                address.equals(that.getAddress()) &&
-                deliveryId == that.deliveryId &&
-                orderStatusId == that.orderStatusId &&
-                cost == that.cost &&
-                date==that.date;
+        if (!(o instanceof Order order)) return false;
+        return Double.compare(order.getCost(), getCost()) == 0 && Objects.equals(getId(), order.getId()) && Objects.equals(getCustomerId(), order.getCustomerId()) && Objects.equals(getDeliveryId(), order.getDeliveryId()) && Objects.equals(getAddress(), order.getAddress()) && Objects.equals(getOrderStatusId(), order.getOrderStatusId()) && Objects.equals(getDate(), order.getDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerId, address, deliveryId, orderStatusId, cost,date);
+        return Objects.hash(getId(), getCustomerId(), getDeliveryId(), getAddress(), getOrderStatusId(), getCost(), getDate());
     }
 }
 

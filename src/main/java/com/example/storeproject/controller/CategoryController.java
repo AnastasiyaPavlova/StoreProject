@@ -14,8 +14,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-
-    @PostMapping("createCategory")
+    @PostMapping("/createCategory")
     public CategoryCreateResponseDto createCategory(@RequestBody CategoryCreateRequestDto dto) {
         return new CategoryCreateResponseDto(categoryService.createCategory(dto));
     }

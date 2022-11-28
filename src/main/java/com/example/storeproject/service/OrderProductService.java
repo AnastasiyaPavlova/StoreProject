@@ -3,7 +3,6 @@ package com.example.storeproject.service;
 import com.example.storeproject.dto.orderProductDto.request.OrderProductCreatRequestDto;
 import com.example.storeproject.entity.OrderProduct;
 import com.example.storeproject.entity.Product;
-import com.example.storeproject.exeption.CustomerNotFoundException;
 import com.example.storeproject.exeption.OrderProductNotEnoughProductException;
 import com.example.storeproject.repository.OrderProductRepository;
 import com.example.storeproject.repository.ProductRepository;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class OrderProductService {
@@ -41,7 +40,6 @@ public class OrderProductService {
                 }
             }
         }
-
         productRepository.saveAll(productForUpdateCount);
         orderProductRepository.saveAll(orderProductForDB);
         return countOrder;

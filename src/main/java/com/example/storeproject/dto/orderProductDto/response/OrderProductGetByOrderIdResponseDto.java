@@ -51,23 +51,4 @@ public class OrderProductGetByOrderIdResponseDto {
     public void setCost(double cost) {
         this.cost = cost;
     }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OrderProductGetByOrderIdResponseDto)) return false;
-        OrderProductGetByOrderIdResponseDto that = (OrderProductGetByOrderIdResponseDto) o;
-        return
-                getProductId()==that.getProductId() &&
-                        getCount()==that.getCount() &&
-                        getPrice()==that.getPrice() &&
-                        getCost() == that.getCost();
-
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(getProductId(), getCount(), getPrice(),getCost());
-    }
-
 }

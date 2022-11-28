@@ -17,7 +17,9 @@ public class Category {
         this.name = name;
         this.parentCategoryId = parentCategoryId;
     }
-    public Category() {}
+
+    public Category() {
+    }
 
     public Long getId() {
         return id;
@@ -46,16 +48,13 @@ public class Category {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category that = (Category) o;
-        return id == that.getId() &&
-                name.equals(that.getName()) &&
-                parentCategoryId == that.getParentCategoryId();
+        if (!(o instanceof Category category)) return false;
+        return Objects.equals(getId(), category.getId()) && Objects.equals(getParentCategoryId(), category.getParentCategoryId()) && Objects.equals(getName(), category.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, parentCategoryId);
+        return Objects.hash(getId(), getParentCategoryId(), getName());
     }
 }
 

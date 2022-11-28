@@ -18,8 +18,7 @@ public class CategoryService {
             throw new ParentCategoryNotFoundException("Parent category with id " + dto.getParentCategoryId() + " not found");
         }
         Category category = new Category(dto.getName(), dto.getParentCategoryId());
-        categoryRepository.save(category);
-        return category;
+        return categoryRepository.save(category);
     }
 }
 
