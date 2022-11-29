@@ -1,11 +1,9 @@
 package com.example.storeproject.dto.orderDto.response;
 
-
 import com.example.storeproject.dto.orderProductDto.response.OrderProductGetByOrderIdResponseDto;
 import com.example.storeproject.entity.Order;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -15,8 +13,7 @@ public class OrderGetByOrderIdResponseDto {
     private Long deliveryId;
     private Long orderStatusId;
     private double cost;
-    private LocalDate date;
-    private List<OrderProductGetByOrderIdResponseDto> orderProductResponse;
+       private List<OrderProductGetByOrderIdResponseDto> orderProductResponse;
 
     public OrderGetByOrderIdResponseDto(Order order, List<OrderProductGetByOrderIdResponseDto> orderProductResponseArray) {
         this.customerId = order.getCustomerId();
@@ -24,8 +21,7 @@ public class OrderGetByOrderIdResponseDto {
         this.deliveryId = order.getDeliveryId();
         this.orderStatusId = order.getOrderStatusId();
         this.cost = order.getCost();
-        this.date = order.getDate();
-        List<OrderProductGetByOrderIdResponseDto> orderProductResponse = new ArrayList<>();
+        // List<OrderProductGetByOrderIdResponseDto> orderProductResponse = new ArrayList<>();
         this.orderProductResponse = orderProductResponseArray;
     }
 
@@ -78,13 +74,5 @@ public class OrderGetByOrderIdResponseDto {
 
     public void setOrderProductResponse(List<OrderProductGetByOrderIdResponseDto> orderProductResponse) {
         this.orderProductResponse = orderProductResponse;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
   }

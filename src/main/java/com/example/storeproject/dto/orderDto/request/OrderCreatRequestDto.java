@@ -1,6 +1,8 @@
 package com.example.storeproject.dto.orderDto.request;
 
 
+
+
 import com.example.storeproject.dto.orderProductDto.request.OrderProductCreatRequestDto;
 
 import java.util.*;
@@ -10,7 +12,7 @@ public class OrderCreatRequestDto {
     private Long customerId;
     private String address;
     private Long deliveryId;
-     private List<OrderProductCreatRequestDto> orderProductRequestArray = new ArrayList<>();
+     private List<OrderProductCreatRequestDto> orderProductRequestArray;
 
     public OrderCreatRequestDto(Long customerId, String address, Long deliveryId, List<OrderProductCreatRequestDto> orderProductRequestArray){
         this.customerId=customerId;
@@ -18,7 +20,7 @@ public class OrderCreatRequestDto {
         this.deliveryId=deliveryId;
         this.orderProductRequestArray=orderProductRequestArray;
     }
-    public OrderCreatRequestDto(){}
+   public OrderCreatRequestDto(){}
 
     public Long getCustomerId() {
         return customerId;
@@ -43,14 +45,14 @@ public class OrderCreatRequestDto {
     public void setDeliveryId(Long deliveryId) {
         this.deliveryId = deliveryId;
     }
-
-    public List<OrderProductCreatRequestDto> orderProductRequestArray() {
+    public List<OrderProductCreatRequestDto> getOrderProductRequestArray() {
         return orderProductRequestArray;
     }
 
-    public void setOrderProductArray(List<OrderProductCreatRequestDto> orderProductRequestArray) {
+    public void setOrderProductRequestArray(List<OrderProductCreatRequestDto> orderProductRequestArray) {
         this.orderProductRequestArray = orderProductRequestArray;
     }
+
 
     @Override
     public boolean equals(Object o) {

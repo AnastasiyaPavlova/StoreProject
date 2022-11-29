@@ -81,7 +81,12 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product product)) return false;
-        return getVisible() == product.getVisible() && Double.compare(product.getPrice(), getPrice()) == 0 && getCount() == product.getCount() && Objects.equals(getId(), product.getId()) && Objects.equals(getCategoryId(), product.getCategoryId()) && Objects.equals(getName(), product.getName());
+        return getVisible() == product.getVisible() &&
+                Double.compare(product.getPrice(), getPrice()) == 0 &&
+                getCount() == product.getCount() &&
+                Objects.equals(getId(), product.getId()) &&
+                Objects.equals(getCategoryId(), product.getCategoryId()) &&
+                Objects.equals(getName(), product.getName());
     }
 
     @Override

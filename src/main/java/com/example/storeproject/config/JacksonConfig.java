@@ -17,3 +17,4 @@ public class JacksonConfig {
                 .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
     }
 }
+

@@ -11,7 +11,7 @@ public class ProductUpdateVisibleRequestDto {
         this.id = id;
         this.visible = visible;
     }
-
+    public ProductUpdateVisibleRequestDto(){}
 
     public Long getId() {
         return id;

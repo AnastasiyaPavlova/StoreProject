@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -36,11 +35,10 @@ public class ProductServiceTest {
     public void testCreateProduct() {
         // given
         ProductCreateRequestDto dto = new ProductCreateRequestDto(1L, "Машинка", true, 100.05, 10);
+        Product product = new Product(1L, "Машинка", true, 100.05, 10);
         Product expectedProduct = new Product(1L, "Машинка", true, 100.05, 10);
         expectedProduct.setId(1L);
-
-        when(productRepository.save(any())).thenReturn(expectedProduct);
-
+        when(productRepository.save(product)).thenReturn(expectedProduct);
         //when
         Product actualProduct = productService.createProduct(dto);
         // then
@@ -54,16 +52,15 @@ public class ProductServiceTest {
         product.setId(1L);
         Optional<Product> productFromDB = Optional.of(product);
         ProductUpdateCategoryIdRequestDto dto = new ProductUpdateCategoryIdRequestDto(1L, 2L);
+        Product expectedProduct = new Product(2L, "Машинка", true, 100.05, 10);
+        expectedProduct.setId(1L);
         Long expectedCategoryId = 2L;
-
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         Long actualCategoryId = productService.updateCategoryIdProduct(dto);
-
         // then
         Assert.assertEquals(expectedCategoryId, actualCategoryId);
-
     }
 
     @Test
@@ -71,32 +68,32 @@ public class ProductServiceTest {
         // given
         Optional<Product> productFromDB = Optional.ofNullable(null);
         ProductUpdateCategoryIdRequestDto dto = new ProductUpdateCategoryIdRequestDto(1L, 2L);
+        Product expectedProduct = new Product(2L, "Машинка", true, 100.05, 10);
+        expectedProduct.setId(1L);
         Long expectedCategoryId = 2L;
-
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         thrown.expect(ProductNotFoundException.class);
         Long actualCategoryId = productService.updateCategoryIdProduct(dto);
-
         // then
         Assert.assertEquals(expectedCategoryId, actualCategoryId);
     }
 
+
     @Test
     public void testUpdateNameProduct() {
-        // given
         Product product = new Product(1L, "Машинка", true, 100.05, 10);
         product.setId(1L);
         Optional<Product> productFromDB = Optional.of(product);
         ProductUpdateNameRequestDto dto = new ProductUpdateNameRequestDto(1L, "Мячик");
+        Product expectedProduct = new Product(1L, "Мячик", true, 100.05, 10);
+        expectedProduct.setId(1L);
         String expectedName = "Мячик";
-
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         String actualName = productService.updateNameProduct(dto);
-
         // then
         Assert.assertEquals(expectedName, actualName);
     }
@@ -106,14 +103,14 @@ public class ProductServiceTest {
         // given
         Optional<Product> productFromDB = Optional.ofNullable(null);
         ProductUpdateNameRequestDto dto = new ProductUpdateNameRequestDto(1L, "Мячик");
+        Product expectedProduct = new Product(1L, "Мячик", true, 100.05, 10);
+        expectedProduct.setId(1L);
         String expectedName = "Мячик";
-
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         thrown.expect(ProductNotFoundException.class);
         String actualName = productService.updateNameProduct(dto);
-
         // then
         Assert.assertEquals(expectedName, actualName);
     }
@@ -125,13 +122,13 @@ public class ProductServiceTest {
         product.setId(1L);
         Optional<Product> productFromDB = Optional.of(product);
         ProductUpdateVisibleRequestDto dto = new ProductUpdateVisibleRequestDto(1L, false);
+        Product expectedProduct = new Product(1L, "Машинка", false, 100.05, 10);
+        expectedProduct.setId(1L);
         Boolean expectedVisible = false;
-
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         Boolean actualVisible = productService.updateVisibleProduct(dto);
-
         // then
         Assert.assertEquals(expectedVisible, actualVisible);
     }
@@ -141,14 +138,14 @@ public class ProductServiceTest {
         // given
         Optional<Product> productFromDB = Optional.ofNullable(null);
         ProductUpdateVisibleRequestDto dto = new ProductUpdateVisibleRequestDto(1L, false);
+        Product expectedProduct = new Product(1L, "Машинка", false, 100.05, 10);
+        expectedProduct.setId(1L);
         Boolean expectedVisible = false;
-
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         thrown.expect(ProductNotFoundException.class);
         Boolean actualVisible = productService.updateVisibleProduct(dto);
-
         // then
         Assert.assertEquals(expectedVisible, actualVisible);
     }
@@ -159,14 +156,14 @@ public class ProductServiceTest {
         Product product = new Product(1L, "Машинка", true, 100.05, 10);
         product.setId(1L);
         Optional<Product> productFromDB = Optional.of(product);
-        ProductUpdatePriceRequestDto dto = new ProductUpdatePriceRequestDto(1L, 55.20);
-        Double expectedPrice = 55.20;
-
+        ProductUpdatePriceRequestDto dto = new ProductUpdatePriceRequestDto(1L, 20.22);
+        Product expectedProduct = new Product(1L, "Машинка", true, 20.22, 10);
+        expectedProduct.setId(1L);
+        Double expectedPrice = 20.22;
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         Double actualPrice = productService.updatePriceProduct(dto);
-
         // then
         Assert.assertEquals(expectedPrice, actualPrice);
     }
@@ -175,15 +172,15 @@ public class ProductServiceTest {
     public void testUpdatePriceProductThrowProductNotFoundExceptionIfProductIsNotExistInDB() {
         // given
         Optional<Product> productFromDB = Optional.ofNullable(null);
-        ProductUpdatePriceRequestDto dto = new ProductUpdatePriceRequestDto(1L, 55.20);
-        Double expectedPrice = 55.20;
-
+        ProductUpdatePriceRequestDto dto = new ProductUpdatePriceRequestDto(1L, 20.22);
+        Product expectedProduct = new Product(1L, "Машинка", true, 20.22, 10);
+        expectedProduct.setId(1L);
+        Double expectedPrice = 20.22;
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         thrown.expect(ProductNotFoundException.class);
         Double actualPrice = productService.updatePriceProduct(dto);
-
         // then
         Assert.assertEquals(expectedPrice, actualPrice);
     }
@@ -195,13 +192,13 @@ public class ProductServiceTest {
         product.setId(1L);
         Optional<Product> productFromDB = Optional.of(product);
         ProductUpdateCountRequestDto dto = new ProductUpdateCountRequestDto(1L, 5);
+        Product expectedProduct = new Product(1L, "Машинка", true, 100.05, 5);
+        expectedProduct.setId(1L);
         int expectedCount = 5;
-
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         int actualCount = productService.updateCountProduct(dto);
-
         // then
         Assert.assertEquals(expectedCount, actualCount);
     }
@@ -211,14 +208,14 @@ public class ProductServiceTest {
         // given
         Optional<Product> productFromDB = Optional.ofNullable(null);
         ProductUpdateCountRequestDto dto = new ProductUpdateCountRequestDto(1L, 5);
+        Product expectedProduct = new Product(1L, "Машинка", true, 100.05, 5);
+        expectedProduct.setId(1L);
         int expectedCount = 5;
-
         when(productRepository.findById(dto.getId())).thenReturn(productFromDB);
-
+        when(productRepository.save(expectedProduct)).thenReturn(expectedProduct);
         //when
         thrown.expect(ProductNotFoundException.class);
         int actualCount = productService.updateCountProduct(dto);
-
         // then
         Assert.assertEquals(expectedCount, actualCount);
     }
@@ -231,72 +228,26 @@ public class ProductServiceTest {
         product.setId(1L);
         Optional<Product> productFromDB = Optional.of(product);
         Long expectedId = 1L;
-
         when(productRepository.findById(id)).thenReturn(productFromDB);
-
         //when
         Long actualId = productService.deleteProduct(id);
-
         // then
         Assert.assertEquals(expectedId, actualId);
     }
+
     @Test
     public void testDeleteProductByIdThrowProductNotFoundExceptionIfProductIsNotExistInDB() {
         // given
         Long id = 1L;
         Optional<Product> productFromDB = Optional.ofNullable(null);
         Long expectedId = 1L;
-
         when(productRepository.findById(id)).thenReturn(productFromDB);
-
         //when
         thrown.expect(ProductNotFoundException.class);
         Long actualId = productService.deleteProduct(id);
-
         // then
         Assert.assertEquals(expectedId, actualId);
     }
 }
 
-
-
-  /*
-
-    public String updateNameProduct(ProductUpdateNameRequestDto dto) {
-        Optional<Product> productFromDB = productRepository.findById(dto.getId());
-        Product product = productFromDB.orElseThrow(() -> new CustomerNotFoundException("Product for update with id " + dto.getId() + " not found"));
-        product.setName(dto.getName());
-        productRepository.save(product);
-        return product.getName();
-    }
-
-    public boolean updateVisibleProduct(ProductUpdateVisibleRequestDto dto) {
-        Optional<Product> productFromDB = productRepository.findById(dto.getId());
-        Product product = productFromDB.orElseThrow(() -> new CustomerNotFoundException("Product for update with id " + dto.getId() + " not found"));
-        product.setVisible(dto.isVisible());
-        productRepository.save(product);
-        return product.getVisible();
-    }
-
-    public double updatePriceProduct(ProductUpdatePriceRequestDto dto) {
-        Optional<Product> productFromDB = productRepository.findById(dto.getId());
-        Product product = productFromDB.orElseThrow(() -> new CustomerNotFoundException("Product for update with id " + dto.getId() + " not found"));
-        product.setPrice(dto.getPrice());
-        productRepository.save(product);
-        return product.getPrice();
-    }
-
-    public int updateCountProduct(ProductUpdateCountRequestDto dto) {
-        Optional<Product> productFromDB = productRepository.findById(dto.getId());
-        Product product = productFromDB.orElseThrow(() -> new CustomerNotFoundException("Product for update with id " + dto.getId() + " not found"));
-        product.setCount(dto.getCount());
-        productRepository.save(product);
-        return product.getCount();
-    }
-
-    public Long deleteProduct(Long id) {
-        Optional<Product> productFromDB = productRepository.findById(id);
-        Product product = productFromDB.orElseThrow(() -> new CustomerNotFoundException("Product for delete with id " + id + " not found"));
-        productRepository.deleteById(id);
-        return product.getId();*/
 

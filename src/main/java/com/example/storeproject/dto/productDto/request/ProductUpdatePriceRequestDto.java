@@ -11,6 +11,7 @@ public class ProductUpdatePriceRequestDto {
         this.id = id;
         this.price = price;
     }
+    public ProductUpdatePriceRequestDto(){}
 
     public Long getId() {
         return id;

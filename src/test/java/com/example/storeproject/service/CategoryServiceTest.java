@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
-
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -23,44 +22,43 @@ public class CategoryServiceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-@MockBean
+    @MockBean
     CategoryRepository categoryRepository;
-    @Autowired
-CategoryService categoryService;
+@Autowired
+    CategoryService categoryService;
 
     @Test
-    public void TestCreateCategory(){
+    public void TestCreateCategory() {
         // given
-        Optional<Category> categoryFromDB = Optional.of(new Category("Игрушки", 1));
-
-        CategoryCreateRequestDto dto = new CategoryCreateRequestDto("Игрушки", 1);
-
-        Category expectedCategory = new Category("Игрушки", 1);
-
-        when(categoryRepository.findById(dto.getParentCategoryId())).thenReturn(categoryFromDB);
+        Category category = new Category("Мячики", 1L);
+        Category parentCategory = new Category("Игрушки", 0);
+        parentCategory.setId(1L);
+        CategoryCreateRequestDto dto = new CategoryCreateRequestDto("Мячики", 1L);
+        Category expectedCategory = new Category("Мячики", 1L);
+        expectedCategory.setId(1L);
+when(categoryRepository.findById(dto.getParentCategoryId())).thenReturn(Optional.of(parentCategory));
+        when(categoryRepository.save(category)).thenReturn(expectedCategory);
 
         //when
         Category actualCategory = categoryService.createCategory(dto);
         // then
         Assert.assertEquals(expectedCategory, actualCategory);
     }
-
-
     @Test
     public void TestCreateCategoryThrowParentCategoryNotFoundExceptionIfParentCategoryIdIsNotExistInDB() {
         // given
-        Optional<Category> categoryFromDB = Optional.ofNullable(null);
-
-        CategoryCreateRequestDto dto = new CategoryCreateRequestDto("Игрушки", 1);
-
-        Category expectedCategory = new Category("Игрушки", 1);
-
-        when(categoryRepository.findById(dto.getParentCategoryId())).thenReturn(categoryFromDB);
-
+        Category category = new Category("Мячики", 1L);
+        CategoryCreateRequestDto dto = new CategoryCreateRequestDto("Мячики", 1L);
+        Category expectedCategory = new Category("Мячики", 1L);
+        expectedCategory.setId(1L);
+        when(categoryRepository.findById(dto.getParentCategoryId())).thenReturn(Optional.ofNullable(null));
+        when(categoryRepository.save(category)).thenReturn(expectedCategory);
         //when
         thrown.expect(ParentCategoryNotFoundException.class);
         Category actualCategory = categoryService.createCategory(dto);
         // then
         Assert.assertEquals(expectedCategory, actualCategory);
     }
+
+
 }

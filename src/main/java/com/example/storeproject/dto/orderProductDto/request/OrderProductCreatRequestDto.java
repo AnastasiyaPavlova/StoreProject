@@ -13,7 +13,7 @@ public class OrderProductCreatRequestDto {
         this.productId = productId;
         this.count = count;
     }
-
+  public OrderProductCreatRequestDto(){}
 
     public Long getProductId() {
         return productId;

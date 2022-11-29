@@ -9,16 +9,18 @@ public class OrderProductGetByOrderIdResponseDto {
     private Long productId;
     private int count;
     private double price;
-       private double cost;
+    private double cost;
 
 
-    public OrderProductGetByOrderIdResponseDto(OrderProduct orderProduct){
-        this.productId= orderProduct.getProductId();
-        this.count= orderProduct.getCount();
-        this.price=orderProduct.getPrice();
-        this.cost=orderProduct.getCost();
+    public OrderProductGetByOrderIdResponseDto(OrderProduct orderProduct) {
+        this.productId = orderProduct.getProductId();
+        this.count = orderProduct.getCount();
+        this.price = orderProduct.getPrice();
+        this.cost = orderProduct.getCost();
     }
-    public OrderProductGetByOrderIdResponseDto(){}
+
+    public OrderProductGetByOrderIdResponseDto() {
+    }
 
     public Long getProductId() {
         return productId;

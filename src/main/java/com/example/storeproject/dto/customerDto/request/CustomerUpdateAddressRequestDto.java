@@ -11,7 +11,7 @@ public class CustomerUpdateAddressRequestDto {
         this.id = id;
         this.address = address;
     }
-
+    public CustomerUpdateAddressRequestDto(){}
     public Long getId() {
         return id;
     }

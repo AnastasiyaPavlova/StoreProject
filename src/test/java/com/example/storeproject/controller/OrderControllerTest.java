@@ -3,6 +3,7 @@ package com.example.storeproject.controller;
 
 import com.example.storeproject.dto.orderDto.request.OrderCreatRequestDto;
 import com.example.storeproject.dto.orderProductDto.request.OrderProductCreatRequestDto;
+import com.example.storeproject.service.OrderProductService;
 import com.example.storeproject.service.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -37,6 +38,8 @@ public class OrderControllerTest {
 
     @MockBean
     private OrderService orderService;
+    @MockBean
+    private OrderProductService orderProductService;
 
     @Test
     public void testCreateOrder() throws Exception {
@@ -45,15 +48,12 @@ public class OrderControllerTest {
         orderProductRequestArray.add(new OrderProductCreatRequestDto(1L, 2));
         OrderCreatRequestDto dtoRequest = new OrderCreatRequestDto(1L, "address", 1L, orderProductRequestArray);
         Long expectedId = 1L;
-
         when(orderService.createOrder(dtoRequest)).thenReturn(expectedId);
-
         //when
         ResultActions result = mockMvc.perform(post("/api/order/createOrder")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))
                 .accept(APPLICATION_JSON));
-
         // then
         result
                 .andExpect(MockMvcResultMatchers.content().string("1"))

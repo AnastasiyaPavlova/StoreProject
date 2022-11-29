@@ -18,28 +18,27 @@ import java.util.List;
 @RequestMapping("/api/order")
 public class OrderController {
 
-  @Autowired
-   private OrderService orderService;
+    @Autowired
+    private OrderService orderService;
     @Autowired
     private OrderProductService orderProductService;
 
-
     @PostMapping("/createOrder")
     public Long createOrder(@RequestBody OrderCreatRequestDto dto) {
-       return orderService.createOrder(dto);
+
+        return orderService.createOrder(dto);
     }
 
     @GetMapping(value = "{orderId}")
-    public  OrderGetByOrderIdResponseDto getOrderStatusByOrderId(@PathVariable Long orderId) {
-        List<OrderProduct> orderProduct= new ArrayList<>();
-        orderProduct=orderProductService.getOrderProductByOrderId(orderId);
+    public OrderGetByOrderIdResponseDto getOrderByOrderId(@PathVariable Long orderId) {
+        List<OrderProduct> orderProduct = new ArrayList<>();
+        orderProduct = orderProductService.getOrderProductByOrderId(orderId);
         List<OrderProductGetByOrderIdResponseDto> orderProductResponse = new ArrayList<>();
-        for (OrderProduct op: orderProduct) {
+        for (OrderProduct op : orderProduct) {
             orderProductResponse.add(new OrderProductGetByOrderIdResponseDto(op));
         }
         Order order = orderService.getOrderByOrderId(orderId);
-        OrderGetByOrderIdResponseDto ooo=new OrderGetByOrderIdResponseDto(order,orderProductResponse);
-        return ooo;
+        return new OrderGetByOrderIdResponseDto(order, orderProductResponse);
     }
 }
 

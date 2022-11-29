@@ -42,15 +42,12 @@ public class ProductControllerTest {
         ProductCreateRequestDto dtoRequest = new ProductCreateRequestDto(1L, "Toy", true, 22.50, 5);
         Product expectedProduct = new Product(1L, "Toy", true, 22.50, 5);
         expectedProduct.setId(1L);
-
         when(productService.createProduct(dtoRequest)).thenReturn(expectedProduct);
-
         //when
         ResultActions result = mockMvc.perform(post("/api/product/createProduct")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))
                 .accept(APPLICATION_JSON));
-
         // then
         result
                 .andExpect(jsonPath("$.categoryId").value(1))
@@ -66,15 +63,12 @@ public class ProductControllerTest {
         // given
         ProductUpdateCategoryIdRequestDto dtoRequest = new ProductUpdateCategoryIdRequestDto(1L, 2L);
         Long expectedCategoryId = 2L;
-
         when(productService.updateCategoryIdProduct(dtoRequest)).thenReturn(expectedCategoryId);
-
         //when
         ResultActions result = mockMvc.perform(post("/api/product/updateCategoryId")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))
                 .accept(APPLICATION_JSON));
-
         // then
         result
                 .andExpect(MockMvcResultMatchers.content().string("2"))
@@ -86,15 +80,12 @@ public class ProductControllerTest {
         // given
         ProductUpdateNameRequestDto dtoRequest = new ProductUpdateNameRequestDto(1L, "car");
         String expectedName = "car";
-
         when(productService.updateNameProduct(dtoRequest)).thenReturn(expectedName);
-
         //when
         ResultActions result = mockMvc.perform(post("/api/product/updateName")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))
                 .accept(APPLICATION_JSON));
-
         // then
         result
                 .andExpect(MockMvcResultMatchers.content().string("car"))
@@ -106,15 +97,12 @@ public class ProductControllerTest {
         // given
         ProductUpdateVisibleRequestDto dtoRequest = new ProductUpdateVisibleRequestDto(1L, false);
         Boolean expectedVisible = false;
-
         when(productService.updateVisibleProduct(dtoRequest)).thenReturn(expectedVisible);
-
         //when
         ResultActions result = mockMvc.perform(post("/api/product/updateVisible")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))
                 .accept(APPLICATION_JSON));
-
         // then
         result
                 .andExpect(MockMvcResultMatchers.content().string("false"))
@@ -126,15 +114,12 @@ public class ProductControllerTest {
         // given
         ProductUpdatePriceRequestDto dtoRequest = new ProductUpdatePriceRequestDto(1L, 50.22);
         Double expectedPrice = 50.22;
-
         when(productService.updatePriceProduct(dtoRequest)).thenReturn(expectedPrice);
-
         //when
         ResultActions result = mockMvc.perform(post("/api/product/updatePrice")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))
                 .accept(APPLICATION_JSON));
-
         // then
         result
                 .andExpect(MockMvcResultMatchers.content().string("50.22"))
@@ -146,15 +131,12 @@ public class ProductControllerTest {
         // given
         ProductUpdateCountRequestDto dtoRequest = new ProductUpdateCountRequestDto(1L, 7);
         int expectedCount = 7;
-
         when(productService.updateCountProduct(dtoRequest)).thenReturn(expectedCount);
-
         //when
         ResultActions result = mockMvc.perform(post("/api/product/updateCount")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dtoRequest))
                 .accept(APPLICATION_JSON));
-
         // then
         result
                 .andExpect(MockMvcResultMatchers.content().string("7"))
@@ -165,14 +147,11 @@ public class ProductControllerTest {
     public void testDeleteProduct() throws Exception {
         // given
         Long id = 1L;
-
         when(productService.deleteProduct(id)).thenReturn(id);
-
         ResultActions result = mockMvc.perform(delete("/api/product/1")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(id))
                 .accept(APPLICATION_JSON));
-
         // then
         result
                 .andExpect(MockMvcResultMatchers.content().string("1"))

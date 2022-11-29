@@ -8,6 +8,7 @@ import com.example.storeproject.repository.OrderProductRepository;
 import com.example.storeproject.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class OrderProductService {
         orderProductRepository.saveAll(orderProductForDB);
         return countOrder;
     }
-
+    @Transactional
     public List<OrderProduct> getOrderProductByOrderId(long orderId) {
         List<OrderProduct> orderProductWithOrderId = new ArrayList<>();
         return orderProductWithOrderId = orderProductRepository.findOrderProductsByOrderId(orderId);

@@ -11,7 +11,7 @@ public class ProductUpdateCountRequestDto {
         this.id = id;
         this.count = count;
     }
-
+    public ProductUpdateCountRequestDto(){}
     public Long getId() {
         return id;
     }

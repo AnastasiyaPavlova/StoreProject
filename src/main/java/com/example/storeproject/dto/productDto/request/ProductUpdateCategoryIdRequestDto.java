@@ -11,6 +11,7 @@ public class ProductUpdateCategoryIdRequestDto {
         this.id = id;
         this.categoryId = categoryId;
     }
+    public ProductUpdateCategoryIdRequestDto(){}
 
     public Long getId() {
         return id;
